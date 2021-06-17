@@ -5,12 +5,12 @@ Simple overview of use/purpose.
 ## Description
 
 - Given a piece of text, return the following
-statistics:
-1. Character Count
-2. Word Count
-3. Sentence Count
-4. Paragraph Count
-5. Bigrams (counts of unique pairs of words)
+  statistics:
+- [x] Character Count
+- [] Word Count
+- [] Sentence Count
+- [] Paragraph Count
+- [] Bigrams (counts of unique pairs of words)
 
 ## Getting Started
 
