@@ -1,12 +1,28 @@
 .App {
-  padding: 1%;
+  padding: 2rem;
+  background-color: #191414;
+  text-align: center;
+}
+
+h1 {
+  padding-top: 2rem;
+  color: #faf0e6;
 }
 
 .hideText {
   display: none;
+  color: #191414;
 }
 
 .showText {
   display: block;
   color: white;
+}
+
+textarea {
+  min-height: 5em;
+  max-height: 50vh;
+  width: 100%;
+  background-color: #f1f9ec;
+  border-color: #1db954;
 }

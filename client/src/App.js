@@ -1,12 +1,13 @@
 import "./App.css";
 import React, { useState } from "react";
-import { Button, FormGroup, Label, Input, Form, Row } from "reactstrap";
+import { FormGroup, Label, Form, CardDeck } from "reactstrap";
 import StatCard from "./components/StatCard";
 
 function App() {
   const wordsMap = new Map();
   const [text, setText] = useState("");
   const [charCount, setCharCount] = useState(0);
+  let mostFreq = "n/a";
 
   const getCharCount = (str) => {
     let chars = str.split("").filter((word) => word !== " ");
@@ -23,30 +24,15 @@ function App() {
     return wordsList ? wordsList.length : 0;
   };
 
-  // TODO: off by one - check
-  const getSentanceCount = (str) => {
-    let sentances = str.match(/[.!?]\s{1,2}/g);
-    return sentances ? sentances.length : 0;
+  const getSentenceCount = (str) => {
+    let sentences = str.match(/\w[.?!](\s|$)/g);
+    return sentences ? sentences.length : 0;
   };
 
   // TODO: off by one - check
   const getParagraphCount = (str) => {
-    let paragraphs = str.split(/\r?\n|\r/g);
+    let paragraphs = str.match(/\r?\n|\r/g);
     return paragraphs ? paragraphs.length : 0;
-  };
-
-  const getWordMap = (str) => {
-    let arrWords = getWords(str);
-    if (arrWords) {
-      arrWords.forEach((word) => {
-        if (wordsMap.has(word)) {
-          wordsMap.set(word, wordsMap.get(word) + 1);
-        } else {
-          wordsMap.set(word, 1);
-        }
-      });
-    }
-    return wordsMap;
   };
 
   function* ngrams(a) {
@@ -82,19 +68,28 @@ function App() {
         }
       });
     }
-
     return bigramsCount;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("characters count ", text.length);
-    console.log("words count ", getWordCount(text));
-    console.log("sentances count ", getSentanceCount(text));
-    console.log("paragraph count ", getParagraphCount(text));
-    console.log("character count without whitespaces ", getCharCount(text));
-    console.log("the frequnce of each word is ", getWordMap(text));
-    console.log(getBigramsCount());
+  const getMostFreq = (str) => {
+    let max = 0;
+    let arrWords = getWords(str);
+    if (arrWords) {
+      arrWords.forEach((word) => {
+        if (wordsMap.has(word)) {
+          wordsMap.set(word, wordsMap.get(word) + 1);
+        } else {
+          wordsMap.set(word, 1);
+        }
+
+        let tempVal = wordsMap.get(word);
+        if (tempVal > max) {
+          max = tempVal;
+          mostFreq = word;
+        }
+      });
+    }
+    return mostFreq;
   };
 
   const handleChange = (e) => {
@@ -104,10 +99,11 @@ function App() {
 
   return (
     <div className="App">
-      <Form onSubmit={handleSubmit}>
+      <h1>Word Count Challenge</h1>
+      <Form style={{ margin: "10px" }}>
         <FormGroup>
-          <Label for="textArea" />
-          <Input
+          <Label className="input" for="textarea" />
+          <textarea
             type="textarea"
             name="text"
             id="textArea"
@@ -117,23 +113,23 @@ function App() {
         </FormGroup>
       </Form>
 
-      <Row>
-        <StatCard title="Character Count" value={text.length}></StatCard>
+      <CardDeck>
+        <StatCard title="Characters" value={charCount}></StatCard>
         <StatCard
-          title="Character without whitespaces Count"
+          title="Characters excluding spaces"
           value={getCharCount(text)}
         ></StatCard>
-        <StatCard title="Word Count" value={getWordCount(text)}></StatCard>
-      </Row>
-      <Row>
-        <StatCard
-          title="Paragraph Count"
-          value={getSentanceCount(text)}
-        ></StatCard>
-        <StatCard title="Bigrams Count" value={getBigramsCount()}></StatCard>
-        {/* TODO: Will need to be changed later */}
-        <StatCard title="Word Frequnce" value={getWordMap(text)}></StatCard>
-      </Row>
+      </CardDeck>
+      <CardDeck>
+        <StatCard title="Words" value={getWordCount(text)}></StatCard>
+        <StatCard title="Sentences" value={getSentenceCount(text)}></StatCard>
+      </CardDeck>
+
+      <CardDeck>
+        <StatCard title="Paragraphs" value={getParagraphCount(text)}></StatCard>
+        <StatCard title="Bigrams" value={getBigramsCount()}></StatCard>
+      </CardDeck>
+      <StatCard title="Most Frequent Word" value={getMostFreq(text)}></StatCard>
     </div>
   );
 }
