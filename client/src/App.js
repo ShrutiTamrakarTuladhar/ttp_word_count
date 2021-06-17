@@ -29,9 +29,9 @@ function App() {
     return sentences ? sentences.length : 0;
   };
 
-  // TODO: off by one - check
   const getParagraphCount = (str) => {
-    let paragraphs = str.match(/\r?\n|\r/g);
+    let paragraphs = str.split(/\r?\n|\r/g).filter((par) => par !== "");
+    console.log(paragraphs);
     return paragraphs ? paragraphs.length : 0;
   };
 
@@ -95,6 +95,7 @@ function App() {
   const handleChange = (e) => {
     setText(e.target.value);
     setCharCount(e.target.value.length);
+    getParagraphCount(text);
   };
 
   return (

@@ -7,14 +7,24 @@ function StatCard(props) {
   const [style, setStyle] = useState({
     backgroundColor: "#faf0e6",
     margin: "20px",
+    padding: "5px 10px",
   });
   const showCard = (e) => {
     setTextStatus("showText");
-    setStyle({ backgroundColor: "#1DB954", color: "#fff", margin: "20px" });
+    setStyle({
+      backgroundColor: "#1DB954",
+      color: "#fff",
+      margin: "20px",
+      padding: "5px 10px",
+    });
   };
   const hideCard = (e) => {
     setTextStatus("hideText");
-    setStyle({ backgroundColor: "#faf0e6", margin: "20px" });
+    setStyle({
+      backgroundColor: "#faf0e6",
+      margin: "20px",
+      padding: "5px 10px",
+    });
   };
 
   return (
