@@ -7,10 +7,10 @@ Simple overview of use/purpose.
 - Given a piece of text, return the following
   statistics:
 - [x] Character Count
-- [] Word Count
-- [] Sentence Count
-- [] Paragraph Count
-- [] Bigrams (counts of unique pairs of words)
+- [x] Word Count
+- [x] Sentence Count
+- [x] Paragraph Count
+- [x] Bigrams (counts of unique pairs of words)
 
 ## Getting Started
 
