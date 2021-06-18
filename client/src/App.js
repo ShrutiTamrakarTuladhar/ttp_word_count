@@ -25,13 +25,17 @@ function App() {
   };
 
   const getSentenceCount = (str) => {
-    let sentences = str.match(/\w[.?!](\s|$)/g);
-    return sentences ? sentences.length : 0;
+    let sentences = str.split(/(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|!|\?)\s/g);
+    if (sentences) {
+      let filtered = sentences.filter((sentence) => sentence.length > 1);
+      return filtered.length;
+    } else {
+      return 0;
+    }
   };
 
   const getParagraphCount = (str) => {
     let paragraphs = str.split(/\r?\n|\r/g).filter((par) => par !== "");
-    console.log(paragraphs);
     return paragraphs ? paragraphs.length : 0;
   };
 

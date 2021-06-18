@@ -3,14 +3,12 @@ import React, { useState } from "react";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 
 function StatCard(props) {
-  const [textStatus, setTextStatus] = useState("hideText");
   const [style, setStyle] = useState({
     backgroundColor: "#faf0e6",
     margin: "20px",
     padding: "5px 10px",
   });
   const showCard = (e) => {
-    setTextStatus("showText");
     setStyle({
       backgroundColor: "#1DB954",
       color: "#fff",
@@ -19,7 +17,6 @@ function StatCard(props) {
     });
   };
   const hideCard = (e) => {
-    setTextStatus("hideText");
     setStyle({
       backgroundColor: "#faf0e6",
       margin: "20px",
@@ -35,9 +32,7 @@ function StatCard(props) {
         onMouseLeave={(e) => hideCard(e)}
       >
         <CardTitle tag="h5">{props.title}</CardTitle>
-        <CardText className={textStatus} tag="h6">
-          {props.value}
-        </CardText>
+        <CardText tag="h6">{props.value}</CardText>
       </CardBody>
     </Card>
   );
